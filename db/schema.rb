@@ -14,10 +14,11 @@ ActiveRecord::Schema.define(version: 2020_02_14_045343) do
 
   create_table "users", force: :cascade do |t|
     t.string "provider"
-    t.string "uid"
+    t.string "gid"
+    t.text "bio"
     t.string "email"
-    t.string "first_name"
-    t.string "last_name"
+    t.string "fullname"
+    t.string "handle"
     t.string "picture"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
