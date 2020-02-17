@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2020_02_14_045343) do
     t.string "fullname"
     t.string "handle"
     t.string "picture"
+    t.string "access_token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

@@ -5,6 +5,7 @@ FactoryGirl.define do
     omniauth_payload = Faker::Omniauth.github #Almost similar to Gitlab
 
     provider { omniauth_payload[:provider] }
+    access_token { "s3cr3t@acc3sst0k3n" }
     email { omniauth_payload[:info][:email] }
     handle { "user-handle" }
     picture { omniauth_payload[:info][:image]}

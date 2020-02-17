@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :fullname
       t.string :handle
       t.string :picture
+      t.string :access_token
 
       t.timestamps
     end

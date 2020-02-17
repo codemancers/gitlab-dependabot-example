@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  validates_presence_of :provider, :gid, :email, :fullname, :handle, :picture
+  validates_presence_of :provider, :gid, :email, :fullname, :handle, :picture, :access_token
 
   def self.find_or_create_from_auth_hash(auth)
 
@@ -11,6 +11,7 @@ class User < ApplicationRecord
       user.fullname = auth.info.name
       user.handle = auth.info.username
       user.picture = auth.info.image
+      user.access_token = auth.credentials.token
 
       user.save!
     end
