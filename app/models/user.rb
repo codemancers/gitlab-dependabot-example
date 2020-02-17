@@ -9,7 +9,7 @@ class User < ApplicationRecord
       user.bio = auth.extra.raw_info.bio
       user.email = auth.info.email
       user.fullname = auth.info.name
-      user.handle = auth.info.nickname
+      user.handle = auth.info.username
       user.picture = auth.info.image
 
       user.save!
