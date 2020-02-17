@@ -21,4 +21,5 @@ jobs:
         sudo apt-get install -yqq libsqlite3-dev
         gem install bundler
         bundle install --jobs 4 --retry 3
+        rails db:migrate
         bundle exec rake
