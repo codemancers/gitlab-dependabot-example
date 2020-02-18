@@ -11,3 +11,6 @@ Style/Documentation:
 Layout/LineLength:
   Max: 100
   IgnoredPatterns: ['(\A|\s)#']
+
+Metrics:
+  Enabled: false
