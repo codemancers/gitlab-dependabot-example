@@ -17,9 +17,9 @@ jobs:
       with:
         ruby-version: 2.7.x
     - name: Run rubocop against current commit
-    run: |
-      gem install rubocop
-      rubocop
+      run: |
+        gem install rubocop
+        rubocop
 
   build:
 
