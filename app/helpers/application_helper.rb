@@ -6,6 +6,6 @@ module ApplicationHelper
   end
 
   def user_signed_in?
-    !!current_user
+    !current_user.nil?
   end
 end

@@ -10,7 +10,11 @@ FactoryGirl.define do
     handle { 'user-handle' }
     picture { omniauth_payload[:info][:image] }
     fullname { omniauth_payload[:info][:name] }
-    bio { 'Lorem ipsum in culpa eu sint sit amet voluptate veniam ut sed reprehenderit sit veniam ea labore eu voluptate est mollit id ut in labore dolor dolore in enim ut sint duis ad duis.' }
+    bio do
+      'Lorem ipsum in culpa eu sint sit amet voluptate veniam '\
+        'ut sed reprehenderit sit veniam ea labore eu voluptate est'\
+        'mollit id ut in labore dolor dolore in enim ut sint duis ad duis.'
+    end
     gid { omniauth_payload[:uid] }
   end
 end
