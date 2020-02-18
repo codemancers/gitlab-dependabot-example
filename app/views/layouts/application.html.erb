@@ -25,20 +25,28 @@
 
     <div id="navbar-menu" class="navbar-menu">
       <div class="navbar-start">
+        <% if user_signed_in? %>
         <a class="navbar-item">
           Repositories
         </a>
+        <% end %>
       </div>
 
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
-            <a class="button is-success">
-              <strong>Sign up</strong>
-            </a>
-            <a class="button is-light">
-              Log in
-            </a>
+            <% if user_signed_in? %>
+              <a class="button is-light" href="/me">
+                Profile
+              </a>
+              <a class="button is-danger" href="/logout">
+                Logout
+              </a>
+            <% else %>
+              <a class="button is-success" href="/login">
+                Log in with GitLab
+              </a>
+            <% end %>
           </div>
         </div>
       </div>
