@@ -1,0 +1,41 @@
+name: Ruby
+
+on:
+  push:
+    branches: master
+  pull_request:
+
+jobs:
+  rubocop:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.7
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7.x
+    - name: Run rubocop against current commit
+      run: |
+        gem install rubocop
+        rubocop
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby 2.7
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7.x
+    - name: Build and test with Rake
+      run: |
+        sudo apt-get install -yqq libsqlite3-dev
+        gem install bundler
+        yarn install
+        bundle install --jobs 4 --retry 3
+        rails db:migrate
+        bundle exec rake
