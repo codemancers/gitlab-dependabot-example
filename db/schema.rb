@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,19 +12,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_14_045343) do
-
-  create_table "users", force: :cascade do |t|
-    t.string "provider"
-    t.string "gid"
-    t.text "bio"
-    t.string "email"
-    t.string "fullname"
-    t.string "handle"
-    t.string "picture"
-    t.string "access_token"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+ActiveRecord::Schema.define(version: 20_200_214_045_343) do
+  create_table 'users', force: :cascade do |t|
+    t.string 'provider'
+    t.string 'gid'
+    t.text 'bio'
+    t.string 'email'
+    t.string 'fullname'
+    t.string 'handle'
+    t.string 'picture'
+    t.string 'access_token'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
-
 end

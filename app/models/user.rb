@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   validates_presence_of :provider, :gid, :email, :fullname, :handle, :picture, :access_token
 
   def self.find_or_create_from_auth_hash(auth)
-
     where(provider: auth.provider, gid: auth.uid).first_or_initialize.tap do |user|
       user.provider = auth.provider
       user.gid = auth.uid
