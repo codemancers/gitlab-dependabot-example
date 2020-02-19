@@ -3,6 +3,6 @@ class RepoController < ApplicationController
   before_action :authenticate
 
   def index
-    @projects = get_projects_of_user(@current_user)
+    @projects, @pagination = get_projects_of_user(@current_user, params[:page])
   end
 end

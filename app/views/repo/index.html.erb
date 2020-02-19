@@ -2,7 +2,8 @@
   Repositories of : <%= @current_user.fullname %>
 </h1>
 
-
+<p>Found <%= @pagination[:total] %> Gitlab repositories</p>
+<hr>
 <div class="columns is-mobile is-multiline">
   <% if !@projects.blank? %>
   <% for project in @projects %>
@@ -40,3 +41,5 @@
   <% end %>
 
 </div>
+<!-- Pagination -->
+<%= render "layouts/pagination" %>
