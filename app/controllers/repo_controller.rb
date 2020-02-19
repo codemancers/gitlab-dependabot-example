@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RepoController < ApplicationController
   include RepoHelper
   before_action :authenticate

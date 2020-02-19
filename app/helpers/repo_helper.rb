@@ -8,7 +8,7 @@ module RepoHelper
     all_user_projects_url = "https://gitlab.com/api/v4/users/#{user.gid}"\
       "/projects?page=#{page}&per_page=9"
     headers = {
-      'Accept' => "application/json",
+      'Accept' => 'application/json',
       'Authorization' => "Bearer #{user.access_token}"
     }
     rsp = RestClient.get(all_user_projects_url, headers)
@@ -20,6 +20,6 @@ module RepoHelper
       per_page: rsp.headers[:x_per_page]
     }
     projects = JSON.parse(rsp)
-    return projects, pagination
+    [projects, pagination]
   end
 end
