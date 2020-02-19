@@ -1,0 +1,42 @@
+<h1 class="title">
+  Repositories of : <%= @current_user.fullname %>
+</h1>
+
+
+<div class="columns is-mobile is-multiline">
+  <% if !@projects.blank? %>
+  <% for project in @projects %>
+  <div class="column is-one-third">
+    <div class="card">
+      <div class="card-content">
+        <p class="title">
+          <%= project['name'] %>
+        </p>
+        <p class="subtitle">
+          <% if project['visibility'] == 'private' %>
+            <label class="has-text-warning is-size-7">Private</label>
+          <% else %>
+            <label class="has-text-success is-size-7">Public</label>
+          <% end %>
+        </p>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            View on <a href="<%= project['web_url'] %>">GitLab</a>
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            Stars: <%= project['star_count'] %>
+          </span>
+        </p>
+      </footer>
+    </div>
+  </div>
+  <% end %>
+  <% else %>
+  <div class="column">No projects found!</div>
+  <% end %>
+
+</div>
