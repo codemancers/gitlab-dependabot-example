@@ -8,8 +8,4 @@ module ApplicationHelper
   def user_signed_in?
     !current_user.nil?
   end
-
-  def paginate(current_page, direction)
-    current_page + direction
-  end
 end
