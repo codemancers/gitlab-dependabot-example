@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class RepoController < ApplicationController
-  include RepoHelper
   before_action :authenticate
 
   def index
-    @projects, @pagination = get_projects_of_user(@current_user, params[:page])
+    projects_response = GitlabRepoService.new(@current_user).fetch_user_projects(params[:page])
+    @projects = JSON.parse(projects_response)
+    @pagination = paginate_repos_from_gitlab_response_headers(projects_response.headers)
   end
 end
