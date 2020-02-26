@@ -40,7 +40,8 @@ RSpec.describe GitlabRepoService, type: :service do
           'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Authorization' => "Bearer #{user.access_token}",
           'Host' => 'gitlab.com',
-          'User-Agent' => 'rest-client/2.1.0 (darwin18.6.0 x86_64) ruby/2.7.0p0'
+          # Match user-agent carefully as it can change according to the platform the tests run on
+          'User-Agent' => /rest-client/
         }
       )
       .to_return(status: 200, body: dummy_response_body, headers: dummy_response_headers)
