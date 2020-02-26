@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   get 'me', to: 'me#show', as: 'me'
+
+  get 'repositories', to: 'repo#index'
 end

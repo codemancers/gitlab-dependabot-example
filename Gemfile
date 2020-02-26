@@ -37,6 +37,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.9'
   gem 'faker', '~> 2.10'
   gem 'rspec-rails', '~> 3.9'
+  gem 'webmock', '~> 3.8'
 end
 
 group :development do
@@ -64,3 +65,5 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'omniauth-gitlab', '~> 2.0'
+
+gem 'rest-client', '~> 2.1'
