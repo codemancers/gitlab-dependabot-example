@@ -11,9 +11,7 @@ FactoryGirl.define do
     picture { omniauth_payload[:info][:image] }
     fullname { omniauth_payload[:info][:name] }
     bio do
-      'Lorem ipsum in culpa eu sint sit amet voluptate veniam '\
-        'ut sed reprehenderit sit veniam ea labore eu voluptate est'\
-        'mollit id ut in labore dolor dolore in enim ut sint duis ad duis.'
+      'Lorem ipsum in culpa eu sint sit amet voluptate veniam '
     end
     gid { omniauth_payload[:uid] }
   end
