@@ -37,8 +37,8 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.9'
   gem 'faker', '~> 2.10'
   gem 'rspec-rails', '~> 3.9'
-  gem 'webmock', '~> 3.8'
   gem 'shoulda-matchers', '~> 4.0'
+  gem 'webmock', '~> 3.8'
 end
 
 group :development do

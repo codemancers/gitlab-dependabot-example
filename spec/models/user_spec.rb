@@ -8,9 +8,8 @@ RSpec.describe User, type: :model do
   end
 end
 
-
 RSpec.describe User, type: :model do
-  [:handle, :gid, :provider, :email, :fullname, :picture, :access_token].each do |attribute|
+  %i[handle gid provider email fullname picture access_token].each do |attribute|
     it { should validate_presence_of(attribute) }
   end
 end
