@@ -24,21 +24,12 @@
     </div>
 
     <div id="navbar-menu" class="navbar-menu">
-      <div class="navbar-start">
-        <% if user_signed_in? %>
-        <a class="navbar-item" href="/repositories">
-          Repositories
-        </a>
-        <% end %>
-      </div>
+
 
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
             <% if user_signed_in? %>
-              <a class="button is-light" href="/me">
-                Profile
-              </a>
               <a class="button is-danger" href="/logout">
                 Logout
               </a>
