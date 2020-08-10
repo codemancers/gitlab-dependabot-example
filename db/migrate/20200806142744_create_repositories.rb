@@ -7,7 +7,7 @@ class CreateRepositories < ActiveRecord::Migration[6.0]
       t.string :visibility
       t.integer :repo_id
       t.string :web_url
-      t.references :user, null: false, foreign_key: true
+      t.references :user
 
       t.timestamps
     end

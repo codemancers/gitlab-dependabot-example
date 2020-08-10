@@ -1,0 +1,26 @@
+<% if @repositories.empty? %>
+  <%= button_to "import", repositories_path %>
+<% else %>
+  <h1 class="title">
+    Repositories of : <%= @current_user.fullname %>
+  </h1>
+  <p>Found <%= @repositories.length %> <span class="has-text-success">Public</span> Gitlab repositories</p>
+  <hr>
+  <% if !@repositories.blank? %>
+    <% for repository in @repositories %>
+      <p><a href="<%= repository['web_url'] %>"> <%= repository['name'] %></a></p>
+      <p> visibility: <span class="has-text-success"><%= repository['visibility'] %></span> </p>
+      <p>scan: <%= repository['scan'] %></p>
+      <% if repository['scan'] == true %>
+        <%= button_to "remove from scanner", repository_path(repository), method: :put %>
+      <% else %>
+        <%= button_to "add to scanner", repository_path(repository), method: :put %>
+      <% end %>
+      <hr>
+    <% end %>
+  <% else %>
+<div class="column">No repositorys found!</div>
+<% end %>
+<!-- Pagination -->
+<%= render "layouts/pagination" %>
+<% end %>

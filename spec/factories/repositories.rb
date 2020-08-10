@@ -8,6 +8,6 @@ FactoryBot.define do
     visibility { 'public' }
     repo_id { Faker::Number.number(digits: 5) }
     web_url { 'https://github.com/faker-ruby/faker' }
-    user { 1 }
+    user { Faker::Number.number }
   end
 end

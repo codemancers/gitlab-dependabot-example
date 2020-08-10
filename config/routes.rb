@@ -8,6 +8,5 @@ Rails.application.routes.draw do
   get 'logout', to: 'sessions#destroy', as: 'logout'
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
-  put 'repositories/:id/update', to: 'repo#update'
-  get 'repositories', to: 'repo#index', as: 'repositories'
+  resources :repositories, except: %i[destroy show]
 end
