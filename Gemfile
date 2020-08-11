@@ -68,3 +68,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'omniauth-gitlab', '~> 2.0'
 
 gem 'rest-client', '~> 2.1'
+
+gem "dependabot-omnibus", "~> 0.118.8"
+
