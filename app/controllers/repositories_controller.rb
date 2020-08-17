@@ -14,7 +14,8 @@ class RepositoriesController < ApplicationController
       current_user.repositories.create(scan: false, name: project['name'], repo_id: project['id'],
                                        description: project['description'],
                                        visibility: project['visibility'],
-                                       web_url: project['web_url'])
+                                       web_url: project['web_url'],
+                                       namespace_path: project['path_with_namespace'])
     end
     redirect_to repositories_path
   end

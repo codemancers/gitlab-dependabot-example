@@ -69,5 +69,4 @@ gem 'omniauth-gitlab', '~> 2.0'
 
 gem 'rest-client', '~> 2.1'
 
-gem "dependabot-omnibus", "~> 0.118.8"
-
+gem 'dependabot-omnibus', '~> 0.118.8'

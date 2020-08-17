@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Repository, type: :model do
   describe 'validations' do
-    %i[name visibility repo_id web_url].each do |attribute|
+    %i[name visibility repo_id web_url namespace_path].each do |attribute|
       it { should validate_presence_of(attribute) }
     end
   end

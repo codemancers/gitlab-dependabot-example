@@ -1,0 +1,7 @@
+<% @repositories.each do |repository| %>
+<ul>
+    <li><%= repository['name'] %></li>
+    <li><%= repository['namespace_path'] %></li>
+    <li><span class="has-text-success">Completed scanning!</span></li>
+</ul>
+<% end %>
