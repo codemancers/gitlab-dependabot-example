@@ -11,6 +11,8 @@ class RepositoriesController < ApplicationController
   def create
     projects = JSON.parse(projects_response).select { |project| project['visibility'] == 'public' }
     projects.each do |project|
+      next if current_user.repositories.find_by(repo_id: project['id'])
+
       current_user.repositories.create(scan: false, name: project['name'], repo_id: project['id'],
                                        description: project['description'],
                                        visibility: project['visibility'],
