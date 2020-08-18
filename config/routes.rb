@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
   resources :repositories, except: %i[destroy show]
+  resources :scans, only: %i[create index]
 end

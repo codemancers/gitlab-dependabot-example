@@ -10,6 +10,7 @@
     <% for repository in @repositories %>
       <p><a href="<%= repository['web_url'] %>"> <%= repository['name'] %></a></p>
       <p> visibility: <span class="has-text-success"><%= repository['visibility'] %></span> </p>
+      <p>path: <%= repository['namespace_path'] %></p>
       <p>scan: <%= repository['scan'] %></p>
       <% if repository['scan'] == true %>
         <%= button_to "remove from scanner", repository_path(repository), method: :put %>
@@ -18,6 +19,7 @@
       <% end %>
       <hr>
     <% end %>
+    <%= button_to "start scan", scans_path, method: :post %>
   <% else %>
 <div class="column">No repositorys found!</div>
 <% end %>
