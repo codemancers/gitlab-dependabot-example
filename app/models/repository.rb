@@ -3,7 +3,7 @@
 class Repository < ApplicationRecord
   belongs_to :user
   validates :name, presence: true
-  validates :repo_id, presence: true
+  validates :repo_id, presence: true, uniqueness: true
   validates :web_url, presence: true
   validates :user_id, presence: true
   validates :namespace_path, presence: true
