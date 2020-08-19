@@ -5,6 +5,8 @@
     Repositories of : <%= @current_user.fullname %>
   </h1>
   <p>Found <%= @repositories.length %> <span class="has-text-success">Public</span> Gitlab repositories</p>
+  <br>
+  <%= button_to "Refresh repositories", repositories_path %>
   <hr>
   <% if !@repositories.blank? %>
     <% for repository in @repositories %>
