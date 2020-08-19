@@ -46,17 +46,12 @@ class DependabotService
   end
 
   def fetch_depedency_files(source, package_manager, repo_name, credentials)
-    arr = []
     puts "Fetching #{package_manager} dependency files for #{repo_name}"
     fetcher = Dependabot::FileFetchers.for_package_manager(package_manager).new(
       source: source,
       credentials: credentials
     )
-    files = fetcher.files
-    commit = fetcher.commit
-    arr << files
-    arr << commit
-    arr
+    fetcher
   end
 
   def parse_dependency_files(package_manager, files, source, credentials)
@@ -117,9 +112,15 @@ class DependabotService
 
   def run
     source_value = source(gitlab_hostname, repo_name, directory)
-    values = fetch_depedency_files(source_value, package_manager, repo_name, credentials)
-    files = values[0]
-    commit = values[1]
+    fetcher = fetch_depedency_files(source_value, package_manager, repo_name, credentials)
+    begin
+      files = fetcher.files
+      commit = fetcher.commit
+    rescue NoMethodError => e
+      puts e.message
+      puts 'Repository might be empty'
+      return
+    end
     dependencies = parse_dependency_files(package_manager, files, source_value, credentials)
     dependencies.select(&:top_level?).each do |dep|
       checker = get_update_details(package_manager, dep, files, credentials)
