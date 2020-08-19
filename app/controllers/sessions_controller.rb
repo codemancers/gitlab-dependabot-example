@@ -8,7 +8,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    Repository.delete_all
     session[:user_id] = nil
     redirect_to root_path
   end
