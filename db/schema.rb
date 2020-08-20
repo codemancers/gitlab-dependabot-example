@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_17_132928) do
+ActiveRecord::Schema.define(version: 2020_08_20_060935) do
 
   create_table "repositories", force: :cascade do |t|
     t.boolean "scan"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 2020_08_17_132928) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "namespace_path"
     t.index ["user_id"], name: "index_repositories_on_user_id"
+  end
+
+  create_table "updated_packages", force: :cascade do |t|
+    t.integer "repository_id"
+    t.string "name"
+    t.string "package_manager"
+    t.string "previous_version"
+    t.string "current_version"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["repository_id"], name: "index_updated_packages_on_repository_id"
   end
 
   create_table "users", force: :cascade do |t|
