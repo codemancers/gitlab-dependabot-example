@@ -22,9 +22,11 @@
       <hr>
     <% end %>
     <%= button_to "start scan", scans_path, method: :post %>
+    <p>Ps: It'll take a few minutes before the scan ends, please wait.</p>
   <% else %>
 <div class="column">No repositorys found!</div>
 <% end %>
 <!-- Pagination -->
+<br>
 <%= render "layouts/pagination" %>
 <% end %>

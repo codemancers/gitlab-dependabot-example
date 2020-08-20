@@ -6,7 +6,7 @@ FactoryBot.define do
     name { Faker::Name.name }
     description { Faker::Lorem.sentence }
     visibility { 'public' }
-    repo_id { Faker::Number.number(digits: 5) }
+    repo_id { 'Faker::Number.number(digits: 5)' }
     web_url { 'https://github.com/faker-ruby/faker' }
     user { Faker::Number.number }
   end

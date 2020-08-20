@@ -1,7 +1,29 @@
 <% @repositories.each do |repository| %>
 <ul>
-    <li><%= repository['name'] %></li>
-    <li><%= repository['namespace_path'] %></li>
-    <li><span class="has-text-success">Completed scanning!</span></li>
+    <li><strong>Repository:</strong> <%= repository['name'] %></li>
+    <li><strong>Url:</strong> <a href="<%= repository['web_url'] %>"><%= repository['web_url'] %></a></li>
+    <% if !repository.updated_packages.empty? %>
+        <% repository.updated_packages.each do |package|%>
+        <div class="container">
+            <div class="notification">
+            <ul>
+                <li>package: <%= package['name'] %></li>
+                <li>package manager: <%= package['package_manager'] %></li>
+                <li>previous version: <%= package['previous_version'] %></li>
+                <li>new version: <%= package['current_version'] %></li>
+            </ul>
+            <% end %>
+            <li><span class="has-text-success">Completed scanning!</span></li>
+            </div>
+        </div>
+        <br>
+    <% else %>
+    <div class="container">
+        <div class="notification">
+        <li><span class="has-text-success">Repository might be empty!</span></li>
+        </div>
+    </div>
+    <br>
+    <% end %>
 </ul>
 <% end %>
