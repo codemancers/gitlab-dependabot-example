@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :updated_package do
-    name { "MyString" }
-    package_manager { "MyString" }
-    previous_version { "MyString" }
-    current_version { "MyString" }
+    name { 'random_package' }
+    package_manager { 'bundler' }
+    previous_version { '3.2.1' }
+    current_version { '5.2.1' }
   end
 end

@@ -106,7 +106,6 @@ class DependabotService
       label_language: true
     )
     pull_request = pr_creator.create
-    puts 'submitted'
     pull_request
   end
 
@@ -118,10 +117,10 @@ class DependabotService
       commit = fetcher.commit
     rescue NoMethodError => e
       puts e.message
-      puts 'Repository might be empty'
-      return
+      return nil
     end
     dependencies = parse_dependency_files(package_manager, files, source_value, credentials)
+    updated_packages = []
     dependencies.select(&:top_level?).each do |dep|
       checker = get_update_details(package_manager, dep, files, credentials)
       next if checker.up_to_date?
@@ -132,12 +131,12 @@ class DependabotService
       updated_deps = checker.updated_dependencies(
         requirements_to_unlock: requirements_to_unlock
       )
+      updated_packages.push(updated_deps)
       updated_files = generate_updated_dependency_files(dep, package_manager, updated_deps,
                                                         files, credentials)
       pull_request = submit_pr(source_value, commit, updated_deps, updated_files, credentials)
       next unless pull_request
-
-      puts 'Done'
     end
+    updated_packages
   end
 end
