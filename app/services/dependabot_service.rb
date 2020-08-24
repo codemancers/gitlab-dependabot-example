@@ -30,7 +30,7 @@ class DependabotService
       }
     ]
     self.directory = '/'
-    self.package_manager = 'bundler'
+    self.package_manager = 'npm_and_yarn'
     self.gitlab_hostname = 'gitlab.com'
   end
 
