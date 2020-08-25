@@ -6,14 +6,15 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <title>Project Pipe</title>
-  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/bulmaswatch/darkly/bulmaswatch.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css">
 </head>
-<body>
+<body class="has-background-light">
+
   <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
-        <img src="/assets/project-pipe.svg">&nbsp;Project Pipe
+        <img src="/assets/project-pipe.svg">&nbsp;Gitlab Dependabot Example
       </a>
 
       <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu">
@@ -30,6 +31,7 @@
         <div class="navbar-item">
           <div class="buttons">
             <% if user_signed_in? %>
+            <span class="has-text-weight-medium mr-2"><%= @current_user.fullname %></span>
               <a class="button is-danger" href="/logout">
                 Logout
               </a>
@@ -43,10 +45,9 @@
       </div>
     </div>
   </nav>
+
   <section class="section">
-    <div class="container">
       <%= yield %>
-    </div>
   </section>
 </body>
 </html>

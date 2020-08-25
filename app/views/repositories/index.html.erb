@@ -1,32 +1,56 @@
-<% if @repositories.empty? %>
-  <%= button_to "import", repositories_path %>
-<% else %>
-  <h1 class="title">
-    Repositories of : <%= @current_user.fullname %>
-  </h1>
-  <p>Found <%= @repositories.length %> <span class="has-text-success">Public</span> Gitlab repositories</p>
-  <br>
-  <%= button_to "Refresh repositories", repositories_path %>
-  <hr>
-  <% if !@repositories.blank? %>
-    <% for repository in @repositories %>
-      <p><a href="<%= repository['web_url'] %>"> <%= repository['name'] %></a></p>
-      <p> visibility: <span class="has-text-success"><%= repository['visibility'] %></span> </p>
-      <p>path: <%= repository['namespace_path'] %></p>
-      <p>scan: <%= repository['scan'] %></p>
-      <% if repository['scan'] == true %>
-        <%= button_to "remove from scanner", repository_path(repository), method: :put %>
-      <% else %>
-        <%= button_to "add to scanner", repository_path(repository), method: :put %>
-      <% end %>
-      <hr>
-    <% end %>
-    <%= button_to "start scan", scans_path, method: :post %>
-    <p>Ps: It'll take a few minutes before the scan ends, please wait.</p>
+
+<div class="columns">
+  
+  <% if @repositories.empty? %>
+  <div class="column has-text-centered is-half is-offset-one-quarter">
+    <%= button_to "import repositories", repositories_path, class: "button is-link" %>
+    <p class="is-size-7 mt-1">Click to import your repositories from Gitlab.</p>
+  </div>
   <% else %>
-<div class="column">No repositorys found!</div>
-<% end %>
-<!-- Pagination -->
-<br>
-<%= render "layouts/pagination" %>
-<% end %>
+  <div class="column has-background-white has-text-centered is-half is-offset-one-quarter">
+    <h1 class="title">Add your repos from Gitlab</h1>
+    <p>Select which repositories to start scanning (supports only <strong>Bundler</strong> as of now)</p>
+    <span class="tag is-primary is-light mt-1">Found <%= @repositories.length %> Public repositories</span>
+    <%= button_to "Refresh repositories", repositories_path, class: "button is-link is-outlined is-small mt-1", span_class: "icon" %>
+    <hr>
+    <% if !@repositories.blank? %>
+      <% for repository in @repositories %>
+      <div class="container level">
+
+        <div class="level-left">
+          <div class="level-item">
+            <p><strong><%= repository['name'] %></strong></p>
+          </div>
+          <div class="level-item">
+            <span class="icon">
+              <i class="fa fa-unlock-alt"></i>
+            </span>
+          </div>
+          <div class="level-item">
+            <a href="<%= repository['web_url'] %>">
+            <span class="icon">
+              <i class="fa fa-link"></i>
+            </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="level-right">
+          <% if repository['scan'] == true %>
+            <%= button_to "remove from scanner", repository_path(repository), class: "button is-danger is-small", method: :put %>
+          <% else %>
+            <%= button_to "add to scanner", repository_path(repository), class: "button is-link is-small", method: :put %>
+          <% end %>
+        </div>
+      </div>
+      <hr>
+        <% end %>
+      <%= button_to "start scan", scans_path, class: "button is-link is-small", method: :post %>
+      <p>Ps: It'll take a few minutes before the scan ends, please wait.</p>
+    <% else %>
+    <div class="column">No repositorys found!</div>
+  </div>
+  <% end %>
+  <br>
+  <% end %>
+</div>
