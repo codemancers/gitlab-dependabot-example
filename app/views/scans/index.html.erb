@@ -1,29 +1,27 @@
-<% @repositories.each do |repository| %>
-<ul>
-    <li><strong>Repository:</strong> <%= repository['name'] %></li>
-    <li><strong>Url:</strong> <a href="<%= repository['web_url'] %>"><%= repository['web_url'] %></a></li>
+<div class="columns">
+    <% @repositories.each do |repository| %>
+    <div class="column has-background-dark has-text-centered has-text-white is-half is-offset-one-quarter">
+
+    <p><strong class="has-text-white"><%= repository['name'] %></strong>        
+        <a href="<%= repository['web_url'] %>">
+        <span class="icon has-text-success">
+          <i class="fa fa-link"></i>
+        </span>
+        </a>
+    </p> 
     <% if !repository.updated_packages.empty? %>
-        <% repository.updated_packages.each do |package|%>
-        <div class="container">
-            <div class="notification">
-            <ul>
-                <li>package: <%= package['name'] %></li>
-                <li>package manager: <%= package['package_manager'] %></li>
-                <li>previous version: <%= package['previous_version'] %></li>
-                <li>new version: <%= package['current_version'] %></li>
-            </ul>
-            <% end %>
-            <li><span class="has-text-success">Completed scanning!</span></li>
-            </div>
-        </div>
+        <% repository.updated_packages.each do |package|%> 
+
+         <p>updated <%= package['name'] %> from <%= package['previous_version'] %> 
+            to <%= package['current_version'] %> (<%= package['package_manager'] %>)</p>   
+
+        <% end %>
         <br>
+        <span class="has-text-success">Completed scanning!</span>
     <% else %>
-    <div class="container">
-        <div class="notification">
         <li><span class="has-text-success">Repository might be empty!</span></li>
-        </div>
-    </div>
     <br>
     <% end %>
-</ul>
+    </div>
+</div>
 <% end %>
