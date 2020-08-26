@@ -4,7 +4,7 @@ class RepositoriesController < ApplicationController
   before_action :authenticate
 
   def index
-    @repositories = Repository.all
+    @repositories = current_user.repositories
     @pagination = paginate_repos_from_gitlab_response_headers(projects_response.headers)
   end
 
@@ -23,7 +23,7 @@ class RepositoriesController < ApplicationController
   end
 
   def update
-    @repository = Repository.find(params[:id])
+    @repository = current_user.repositories.find(params[:id])
     if @repository['scan'] == true
       @repository.update_attribute(:scan, false)
     else
