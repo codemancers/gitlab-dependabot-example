@@ -2,11 +2,11 @@
 
 class ScansController < ApplicationController
   def index
-    @repositories = Repository.where(scan: true)
+    @repositories = current_user.repositories.where(scan: true)
   end
 
   def create
-    @repositories = Repository.where(scan: true)
+    @repositories = current_user.repositories.where(scan: true)
     @repositories.each do |repository|
       repository.updated_packages.delete_all
       access_token = repository.user.access_token
