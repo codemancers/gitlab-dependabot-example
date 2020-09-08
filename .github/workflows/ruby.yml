@@ -1,60 +1,65 @@
-name: Ruby
+# name: Ruby
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
+# on:
+#   push:
+#     branches:
+#       - master
+#       - dockerise-app
+#   pull_request:
 
-jobs:
-  rubocop:
+# jobs:
+#   rubocop:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby 2.7
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.7.x
-    - name: Run rubocop against current commit
-      run: |
-        gem install rubocop
-        rubocop
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Set up Ruby 2.7
+#       uses: actions/setup-ruby@v1
+#       with:
+#         ruby-version: 2.7.x
+#     - name: Run rubocop against current commit
+#       run: |
+#         gem install rubocop
+#         rubocop
 
-  build:
+#   build:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby 2.7
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.7.x
-    - name: Build and test with Rake
-      run: |
-        sudo apt-get install -yqq libsqlite3-dev
-        gem install bundler
-        yarn install
-        bundle install --jobs 4 --retry 3
-        rails db:migrate
-        bundle exec rake
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Set up Ruby 2.7
+#       uses: actions/setup-ruby@v1
+#       with:
+#         ruby-version: 2.7.x
+#     - name: Build and test with Rake
+#       run: |
+#         sudo apt-get install -yqq libsqlite3-dev
+#         gem install bundler
+#         yarn install
+#         bundle install --jobs 4 --retry 3
+#         rails db:migrate
+#         bundle exec rake
   
-  heroku:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Login to Heroku Container registry
-      env: 
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:login 
-    - name: Build and push
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web --recursive
-    - name: Release
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web 
+  # heroku:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v1
+  #   - uses: actions/heroku@master
+
+  #   - name: Login to Heroku Container registry
+  #     env: 
+  #       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  #     run: heroku container:login 
+  #   - name: Build and push
+  #     env:
+  #       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  #       HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }} 
+  #     run: heroku container:push -a gitlab-dependabot-example web --recursive
+  #   - name: Release
+  #     env:
+  #       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+  #       HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+  #     run: heroku container:release -a $HEROKU_APP_NAME web 
 

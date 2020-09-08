@@ -1,0 +1,26 @@
+version: 2.1
+
+workflows:
+    test-env-vars:
+      jobs:
+        - build:
+            context: gitlab-dependabot # has an env var called MY_ENV_VAR
+  
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      # build and push Docker image
+      - run: |
+          TAG=0.1.$CIRCLE_BUILD_NUM
+          docker build -t jithindasad/gitlab-dependabot-example:$TAG .
+          echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+          docker push jithindasad/gitlab-dependabot-example:$TAG
+
+      # Deploy to Heroku
+      -  run: |
+           TAG=0.1.$CIRCLE_BUILD_NUM
+           docker login --username=$HEROKU_LOGIN --password=$HEROKU_API_KEY registry.heroku.com
+           docker tag jithindasad/gitlab-dependabot-example:$TAG registry.heroku.com/$HEROKU_APP_NAME/web
+           docker push registry.heroku.com/$HEROKU_APP_NAME/web          
