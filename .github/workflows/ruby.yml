@@ -2,7 +2,8 @@ name: Ruby
 
 on:
   push:
-    branches: master
+    branches:
+      - master
   pull_request:
 
 jobs:
@@ -39,3 +40,21 @@ jobs:
         bundle install --jobs 4 --retry 3
         rails db:migrate
         bundle exec rake
+  
+  heroku:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Login to Heroku Container registry
+      env: 
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:login 
+    - name: Build and push
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:push -a ${{ secrets.HEROKU_APP_NAME }} web --recursive
+    - name: Release
+      env:
+        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web 
+
