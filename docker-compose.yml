@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+    web:
+        build: .
+        volumes:
+            - .:/usr/src/docker_rails
+            - gems:/usr/local/bundle
+            - node-modules:/usr/docker_rails/app/node_modules
+        ports:
+            - "3000:3000"
+    pg:
+        image: postgres:12-alpine
+        volumes:
+            - pg-data:/var/lib/postgresql/data
+    webpacker:
+        build: .
+        command: ./bin/webpack-dev-server
+        volumes:
+            - ./:/usr/src/docker_rails
+            - gems:/usr/local/bundle
+            - node-modules:/usr/src/docker_rails/node_modules
+        ports:
+            - 3035:3035          
+volumes:
+    gems:
+    pg-data:
+    node-modules:
