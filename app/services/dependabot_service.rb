@@ -106,15 +106,23 @@ class DependabotService
 
   def run
     source_value = source(gitlab_hostname, repo_name, directory)
+    
     fetcher = fetch_depedency_files(source_value, package_manager, repo_name, credentials)
     begin
       files = fetcher.files
-     commit = fetcher.commit
+      Rails.logger.debug "Files contains: #{files.inspect}"
+      commit = fetcher.commit
+      Rails.logger.debug "Commit contains: #{commit.inspect}"
+     
    rescue NoMethodError => e
       puts e.message
       return nil
     end
+    
+    Rails.logger.debug "Files contains: #{files.inspect}"
+    Rails.logger.debug "Commit contains: #{commit.inspect}"
     dependencies = parse_dependency_files(package_manager, files, source_value, credentials)
+    
     updated_packages = []
     dependencies.select(&:top_level?).each do |dep|
       checker = get_update_details(package_manager, dep, files, credentials)
