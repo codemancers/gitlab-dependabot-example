@@ -69,6 +69,8 @@ class DependabotService
   end
 
   def requirements(checker)
+    Rails.logger.debug "checker can update all: #{checker.can_update?(requirements_to_unlock: :all)}"
+    Rails.logger.debug "checker can update own: #{checker.can_update?(requirements_to_unlock: :own)}"
     if !checker.requirements_unlocked_or_can_be?
       if checker.can_update?(requirements_to_unlock: :none) then :none
       else :update_not_possible
