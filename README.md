@@ -91,3 +91,12 @@ Run with `—help` or `-h` for options.
 **Ps:** you'll need to make your `url` public inorder for Gitlab OAuth to work. Try using `ngrok` or some other service to test locally.
 Make sure 'merge requests' in gitlab repository settings is enabled.
  Go to http://localhost:3000 and Play around!
+
+ For Docker:
+ $ docker-compose build
+ $ docker-compose run web bash
+ *it will bash in the container*
+ # rake db:create
+ # rake db:migrate
+ # exit
+ $ docker-compose up
