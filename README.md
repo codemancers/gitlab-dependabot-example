@@ -69,7 +69,7 @@ To generate your GITLAB_KEY and GITLAB_SECRET sign in to your gitlab and go to '
  Doing this will generate your Access Token.
 
 
-There is a file called `.env` in the root directory of this project with all the environment variables set to empty value. You can set the correct values as per the following options:
+There is a file called `.env` (or create) in the root directory of this project with all the environment variables set to empty value. You can set the correct values as per the following options:
 
     GITLAB_KEY=your-key
     GITLAB_SECRET=your-secret
