@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2020_08_20_060935) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "repositories", force: :cascade do |t|
     t.boolean "scan"
     t.string "name"
@@ -19,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_08_20_060935) do
     t.string "visibility"
     t.integer "repo_id"
     t.string "web_url"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "namespace_path"
@@ -27,7 +30,7 @@ ActiveRecord::Schema.define(version: 2020_08_20_060935) do
   end
 
   create_table "updated_packages", force: :cascade do |t|
-    t.integer "repository_id"
+    t.bigint "repository_id"
     t.string "name"
     t.string "package_manager"
     t.string "previous_version"
