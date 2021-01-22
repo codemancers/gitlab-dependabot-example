@@ -13,15 +13,9 @@ class DependabotService
                 :directory, :package_manager, :gitlab_hostname
 
   def initialize(token, repo_name)
-    self.token = token
-    self.repo_name = repo_name
-    self.credentials = [
-      {
-        'type' => 'git_source',
-        'host' => 'github.com',
-        'username' => 'x-access-token',
-        'password' => ENV['GITHUB_ACCESS_TOKEN'] # A GitHub access token with read access to public repos
-      },
+    @token = token
+    @repo_name = repo_name
+    @credentials = [
       {
         'type' => 'git_source',
         'host' => 'gitlab.com',
@@ -29,9 +23,10 @@ class DependabotService
         'password' => token
       }
     ]
-    self.directory = '/'
-    self.package_manager = 'bundler'
-    self.gitlab_hostname = 'gitlab.com'
+    @directory = '/'
+    @package_manager = "bundler"
+    @gitlab_hostname = 'gitlab.com'
+    
   end
 
   def source(gitlab_hostname, repo_name, directory)
@@ -49,7 +44,7 @@ class DependabotService
     puts "Fetching #{package_manager} dependency files for #{repo_name}"
     fetcher = Dependabot::FileFetchers.for_package_manager(package_manager).new(
       source: source,
-      credentials: credentials
+      credentials: credentials,
     )
     fetcher
   end
@@ -59,9 +54,9 @@ class DependabotService
     parser = Dependabot::FileParsers.for_package_manager(package_manager).new(
       dependency_files: files,
       source: source,
-      credentials: credentials
+      credentials: credentials,
     )
-
+    
     parser.parse
   end
 
@@ -69,11 +64,13 @@ class DependabotService
     Dependabot::UpdateCheckers.for_package_manager(package_manager).new(
       dependency: dep,
       dependency_files: files,
-      credentials: credentials
+      credentials: credentials,
     )
   end
 
   def requirements(checker)
+    Rails.logger.debug "checker can update all: #{checker.can_update?(requirements_to_unlock: :all)}"
+    Rails.logger.debug "checker can update own: #{checker.can_update?(requirements_to_unlock: :own)}"
     if !checker.requirements_unlocked_or_can_be?
       if checker.can_update?(requirements_to_unlock: :none) then :none
       else :update_not_possible
@@ -111,15 +108,23 @@ class DependabotService
 
   def run
     source_value = source(gitlab_hostname, repo_name, directory)
+    
     fetcher = fetch_depedency_files(source_value, package_manager, repo_name, credentials)
     begin
       files = fetcher.files
+      Rails.logger.debug "Files contains: #{files.inspect}"
       commit = fetcher.commit
-    rescue NoMethodError => e
+      Rails.logger.debug "Commit contains: #{commit.inspect}"
+     
+   rescue NoMethodError => e
       puts e.message
       return nil
     end
+    
+    Rails.logger.debug "Files contains: #{files.inspect}"
+    Rails.logger.debug "Commit contains: #{commit.inspect}"
     dependencies = parse_dependency_files(package_manager, files, source_value, credentials)
+    
     updated_packages = []
     dependencies.select(&:top_level?).each do |dep|
       checker = get_update_details(package_manager, dep, files, credentials)
@@ -139,4 +144,5 @@ class DependabotService
     end
     updated_packages
   end
+
 end

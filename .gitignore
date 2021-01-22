@@ -36,7 +36,7 @@ yarn-debug.log*
 .yarn-integrity
 
 # Ignore environment variables
-.envrc
+.env
 
 .DS_Store
 

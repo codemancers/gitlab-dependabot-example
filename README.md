@@ -52,15 +52,32 @@ We’re going to use  [rbenv](https://github.com/sstephenson/rbenv)  to install 
     ```
 **Environment variables**
 
-There is a file called `.envrc` in the root directory of this project with all the environment variables set to empty value. You can set the correct values as per the following options:
+To generate your GITLAB_KEY and GITLAB_SECRET sign in to your gitlab and go to 'User Settings > Applications' 
+ -provide a suitable name
+ -redirect URI = https://<your_hostname>/auth/gitlab/callback
+ -check all the necessary access
+ -click on 'Save Application'
 
-    export GITLAB_KEY=your-key
-    export GITLAB_SECRET=your-secret
+ Doing this will generate your application ID and SECRET which will be your KEY and SECRET respectively.
 
-    export GITHUB_ACCESS_TOKEN=your-token
+ To generate your GITLAB_ACCESS_TOKEN sign in to your gitlab and go to 'User Settings > Access Tokens' 
+ -provide a suitable name
+ -keep the date section blank if you want to use the toke indefinitely
+ -check all the necessary access
+ -click on 'Create Personal Access Token'
 
-    export RAILS_ENV=development
-    export PORT=3000
+ Doing this will generate your Access Token.
+
+
+There is a file called `.env` (or create) in the root directory of this project with all the environment variables set to empty value. You can set the correct values as per the following options:
+
+    GITLAB_KEY=your-key
+    GITLAB_SECRET=your-secret
+
+    GITLAB_ACCESS_TOKEN=your-token
+
+    RAILS_ENV=development
+    PORT=3000
     
 
 **Test on LocalHost**
@@ -72,5 +89,14 @@ Make sure your are in the root directory and start the web server:
 Run with `—help` or `-h` for options.
 
 **Ps:** you'll need to make your `url` public inorder for Gitlab OAuth to work. Try using `ngrok` or some other service to test locally.
-
+Make sure 'merge requests' in gitlab repository settings is enabled.
  Go to http://localhost:3000 and Play around!
+
+ For Docker:
+ $ docker-compose build
+ $ docker-compose run web bash
+ *it will bash in the container*
+ # rake db:create
+ # rake db:migrate
+ # exit
+ $ docker-compose up
