@@ -30,6 +30,7 @@ gem 'jbuilder', '~> 2.10'
 gem 'bootsnap', '>= 1.4.7', require: false
 
 gem 'pg'
+gem 'dotenv-rails'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
