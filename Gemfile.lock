@@ -95,6 +95,11 @@ GEM
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
+    delayed_job (4.1.8)
+      activesupport (>= 3.0, < 6.1)
+    delayed_job_active_record (4.1.4)
+      activerecord (>= 3.0, < 6.1)
+      delayed_job (>= 3.0, < 5)
     dependabot-bundler (0.118.12)
       dependabot-common (= 0.118.12)
     dependabot-cargo (0.118.12)
@@ -390,6 +395,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.7)
   byebug
   capybara (~> 3.33)
+  delayed_job_active_record
   dependabot-omnibus (~> 0.118.8)
   factory_bot_rails (~> 6.1)
   faker (~> 2.13)
